@@ -25,8 +25,8 @@ public class NewsService {
     public static final String SEARCH_URL = "https://newsapi.org/v2/top-headlines";
     //public static final String TEST_URL = "https://newsapi.org/v2/top-headlines?country=us&apiKey=60146948831d4d3e8cbed9edf853bd57&category=general";
 
-    //@Value("${news.api.key}")
-    private String apiKey = "60146948831d4d3e8cbed9edf853bd57";
+    @Value("${news.api.key}")
+    private String apiKey;
 
     public List<Article> readSearchParams(SearchParams params) {
 
