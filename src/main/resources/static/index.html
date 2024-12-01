@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>News Search</h1>
+
+    <div>
+        <form method="GET" action="/search">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Query:</td>
+                        <td>
+                            <input type="text" name="query">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Category:</td>
+                        <td>
+                            <select name="category">
+                                <option value="general" selected>general</option>
+                                <option value="business">business</option>
+                                <option value="entertainment">entertainment</option>
+                                <option value="health">health</option>
+                                <option value="science">science</option>
+                                <option value="sports">sports</option>
+                                <option value="technology">technology</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Country:</td>
+                        <td>
+                            <select name="country">
+                                <option value="us" selected>USA</option>
+                                <option value="sg">Singapore</option>
+                                <option value="tw">Taiwan</option>
+                                <option value="hk">Hong Kong</option>
+                                <option value="jp">Japan</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button type="submit">Search</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Top Headlines for: <code data-th-text="${query}"></code></h1>
+
+    <div data-th-if="${#lists.isEmpty(articles)}">
+        <h3>Your search produces no result</h3>
+    </div>
+
+    <div data-th-unless="${#lists.isEmpty(articles)}">
+        <ul>
+            <li data-th-each="article : ${articles}" data-th-object="${article}">
+                <h3><code data-th-text="*{title}"></code></h4>
+                <h5><code data-th-text="*{description}"></code></h4>
+                <img data-th-src="*{imgUrl}">
+                <!-- <h5><code data-th-text="*{content}"></code></h4> -->
+                <h4><a data-th-href="@{*{url}}">Click link to article</a></h4>
+            </li>
+        </ul>
+    </div>
+    <a data-th-href="@{/}"> Back </a>
+</body>
+</html>
