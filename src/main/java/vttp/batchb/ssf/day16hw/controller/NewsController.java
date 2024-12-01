@@ -39,7 +39,7 @@ public class NewsController {
         mav.addObject("query", params.query());
         mav.addObject("articles", articles);
 
-        System.out.println("is list empty:"+ articles.isEmpty());
+        //System.out.println("is list empty:"+ articles.isEmpty());
         
         return mav;
     }

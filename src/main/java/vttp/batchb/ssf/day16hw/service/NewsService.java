@@ -50,11 +50,45 @@ public class NewsService {
             RestTemplate template = new RestTemplate();
             ResponseEntity<String> resp;
 
+            List<Article> articles = new LinkedList<>();
+
         try {
             resp = template.exchange(req, String.class);
             //get payload
             String payload = resp.getBody();
-            return getNews(payload);
+            //return getNews(payload);
+        
+            //create json reader
+            JsonReader reader = Json.createReader(new StringReader(payload));
+            
+            //read json file first obj
+            JsonObject result = reader.readObject();
+            JsonArray articleArray = result.getJsonArray("articles");
+
+            //loop json array
+            for (int i = 0; i < articleArray.size(); i++) {
+                Article article = new Article();
+                //read strings to get info
+                String title = articleArray.getJsonObject(i)
+                                 .getString("title");
+                String description = articleArray.getJsonObject(i)
+                                .getString("description");
+                String articleUrl = articleArray.getJsonObject(i)
+                                .getString("url");
+                String imageUrl = articleArray.getJsonObject(i).getString("urlToImage", null);
+                System.out.println(imageUrl);
+                //String imgUrl = articleArray.getJsonObject(i)
+                //                .getString("urlToImage");
+                
+                article.setTitle(title);
+                article.setUrl(articleUrl);
+                article.setImgUrl(imageUrl);
+                article.setDescription(description);
+
+                //System.out.println(article.toString());
+                articles.add(article);    
+            }
+        return articles;   
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -62,41 +96,42 @@ public class NewsService {
         }
     }
 
-    private List<Article> getNews(String json) {
+//     private List<Article> getNews(String json) {
 
-        //create json reader
-        JsonReader reader = Json.createReader(new StringReader(json));
-        //read json file first obj
-        JsonObject result = reader.readObject();
-        //read array article 
-        JsonArray articleArray = result.getJsonArray("articles");
-        //iterate thru every obj in array
-        List<Article> articles = new LinkedList<>();
+//         //create json reader
+//         JsonReader reader = Json.createReader(new StringReader(json));
         
-        for (int i = 0; i < articles.size(); i++) {
-            
-            //read strings to get info
-            String title = articleArray.getJsonObject(i)
-                            .getString("title");
-            String description = articleArray.getJsonObject(i)
-                            .getString("description");
-            String articleUrl = articleArray.getJsonObject(i)
-                            .getString("url");
-            String imgUrl = articleArray.getJsonObject(i)
-                            .getString("urlToImage");
-            // String content = articleArray.getJsonObject(i)
-            //                 .getString("content");
+//         //read json file first obj
+//         JsonObject result = reader.readObject();
+//         JsonArray articleArray = result.getJsonArray("articles");
+   
+//         List<Article> articles = new LinkedList<>();
+        
+//         //loop json array
+//         for (int i = 0; i < articleArray.size(); i++) {
+//             JsonObject articleObj = articleArray.getJsonObject(i);
+//             //read strings to get info
+//             String title = articleObj
+//                             .getString("title");
+//             String description = articleObj
+//                             .getString("description");
+//             String articleUrl = articleObj
+//                             .getString("url");
+//             String imgUrl = articleObj
+//                             .getString("urlToImage");
+//             // String content = articleArray.getJsonObject(i)
+//             //                 .getString("content");
 
-            Article article = new Article();
-            article.setTitle(title);
-            article.setUrl(articleUrl);
-            article.setImgUrl(imgUrl);
-            article.setDescription(description);
-            // article.setContent(content);
+//             Article article = new Article();
+//             article.setTitle(title);
+//             article.setUrl(articleUrl);
+//             article.setImgUrl(imgUrl);
+//             article.setDescription(description);
+//             // article.setContent(content);
 
-            System.out.println(article.toString());
-            articles.add(article);    
-        }
-        return articles;
-    }
+//             //System.out.println(article.toString());
+//             articles.add(article);    
+//         }
+//         return articles;
+//     }
 }
